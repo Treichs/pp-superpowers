@@ -1,15 +1,15 @@
 # BUILD-TRACKER.md — pp-superpowers Central Build Plan
 
-**Last updated:** April 13, 2026 (Phase 2 — all Step 7 issues resolved, ready for Step 8 merge to main)  
+**Last updated:** April 13, 2026 (Phase 3 — Build Layer started, security design doc written)  
 **Purpose:** Single source of truth for build progress. Read this file at the start of every Claude Code session.
 
 ---
 
 ## Current Position
 
-**Phase 2 — Design Layer**  
-**Active task:** Step 7 — Fix remaining issues from live tests, then Step 8 — merge to main  
-**Branch:** `feature/phase2-design-layer`
+**Phase 3 — Build Layer**  
+**Active task:** Step 1 — Create agents (ui-reviewer, plugin-auditor, security-reviewer)  
+**Branches:** `feature/skill-ui-design`, `feature/skill-business-logic`, `feature/skill-security`
 
 ---
 
@@ -108,6 +108,109 @@ git branch -d feature/phase2-design-layer
 - [ ] application-design Mode B (needs real solution artifacts)
 - [ ] schema-design without DDD model
 - [ ] schema-design re-entry (delta mode)
+
+---
+
+### Phase 3: Build ui-design, business-logic, and security
+
+**Branches:** `feature/skill-ui-design`, `feature/skill-business-logic`, `feature/skill-security`
+
+#### Step 0 — Security design document and tracker update
+
+- [x] Write `docs/pp-superpowers-security.md` — full design spec (April 13)
+- [x] Update BUILD-TRACKER.md current position to Phase 3 (April 13)
+- [ ] Approve security design document (status → Approved v1.0)
+- [ ] Update Design Document Status table
+
+#### Step 1 — Agents (parallel)
+
+- [ ] `agents/ui-reviewer.md` — sub-skill mode + integration mode, 6 sub-skill-specific review criteria
+- [ ] `agents/plugin-auditor.md` — full csharp-plugin audit, scoring formula, 5 audit domains
+- [ ] `agents/security-reviewer.md` — least-privilege validation, FLS completeness, team alignment
+
+#### Step 2 — ui-design skill (Branch: feature/skill-ui-design)
+
+- [ ] `skills/ui-design/SKILL.md` — router with 6-stage state machine
+- [ ] `skills/ui-design/conversation-guide.md` — router stage flows, sub-skill dispatch protocol
+- [ ] `skills/ui-design/model-driven-app/SKILL.md` — 8 stages (forms, views, dashboards, sitemap, wireframe)
+- [ ] `skills/ui-design/canvas-app/SKILL.md` — 8 stages (screens, navigation, data sources, responsive)
+- [ ] `skills/ui-design/pcf-control/SKILL.md` — 6 stages (brainstorm, plan, execute)
+- [ ] `skills/ui-design/custom-page/SKILL.md` — 7 stages (MDA embedding, components, navigation)
+- [ ] `skills/ui-design/modal-dialog/SKILL.md` — 5 stages (simplest sub-skill)
+- [ ] `skills/ui-design/code-app/SKILL.md` — 7 stages (React/Vite/TS, PAC CLI scaffold)
+- [ ] Update `skills/using-pp-superpowers/SKILL.md` routing table
+
+#### Step 3 — business-logic skill (Branch: feature/skill-business-logic)
+
+- [ ] `skills/business-logic/SKILL.md` — router with 6-stage state machine
+- [ ] `skills/business-logic/conversation-guide.md` — logic map classification, complexity gate
+- [ ] `skills/business-logic/csharp-plugin/SKILL.md` — 8 stages (discovery, scaffold, implement, plugin-auditor)
+- [ ] `skills/business-logic/power-automate/SKILL.md` — 7 stages (flow diagram, boundary detection)
+- [ ] `skills/business-logic/business-rule/SKILL.md` — 6 stages (complexity gate, maker portal config)
+- [ ] `skills/business-logic/client-script/SKILL.md` — 7 stages (form event map, Xrm API, Jest stubs)
+- [ ] Update `skills/using-pp-superpowers/SKILL.md` routing table
+
+#### Step 4 — security skill (Branch: feature/skill-security)
+
+- [ ] `skills/security/SKILL.md` — 7-stage state machine (single-path, not router)
+- [ ] `skills/security/conversation-guide.md` — per-stage flows, EXTREMELY-IMPORTANT directives
+- [ ] Update `skills/using-pp-superpowers/SKILL.md` routing table
+
+#### Step 5 — Populate minimal test project
+
+- [ ] `tests/minimal-project/.foundation/` — all 10 foundation files (minimal content)
+- [ ] `tests/minimal-project/docs/ddd-model.md` — minimal DDD model
+- [ ] `tests/minimal-project/docs/schema-physical-model.md` — 2 entities, 5 columns each
+- [ ] `tests/minimal-project/docs/ui-form-event-map.md` — 1 form event
+
+#### Step 6 — Live-test ui-design (single sub-skill: model-driven-app)
+
+- [ ] Prerequisites hard-gate fires correctly
+- [ ] CONTEXT_GATHER presents structured questions
+- [ ] SUB_SKILL_SELECTION maps foundation app types to sub-skills
+- [ ] model-driven-app full walk-through (all 8 stages)
+- [ ] Form event map written correctly
+- [ ] INTEGRATION_REVIEW correctly skipped (single sub-skill)
+- [ ] COMPLETE writes ui-design-spec.md and skill-state.json
+
+#### Step 7 — Live-test business-logic (single sub-skill: csharp-plugin)
+
+- [ ] Prerequisites hard-gate fires correctly
+- [ ] Logic map classification works
+- [ ] Business rule complexity gate presentation
+- [ ] csharp-plugin full walk-through (all 8 stages)
+- [ ] plugin-auditor agent dispatched and returns scored report
+- [ ] INTEGRATION_REVIEW correctly skipped (single sub-skill)
+- [ ] COMPLETE writes business-logic-inventory.md
+
+#### Step 8 — Live-test security
+
+- [ ] INIT loads security profile (handles placeholder vs. complete)
+- [ ] ROLE_ANALYSIS generates role-to-privilege mapping
+- [ ] PRIVILEGE_MATRIX builds complete CRUD matrix per role
+- [ ] FIELD_SECURITY identifies FLS candidates (or correctly skips)
+- [ ] TEAM_HIERARCHY skip logic (if not in scope)
+- [ ] security-reviewer agent dispatched
+- [ ] COMPLETE writes security-design.md
+
+#### Step 9 — Fix issues from live tests
+
+(Items added as discovered during Steps 6-8)
+
+#### Step 10 — Merge to main (per-skill, as each passes testing)
+
+```bash
+# After each skill passes live testing:
+git checkout main
+git merge feature/skill-[name]
+git branch -d feature/skill-[name]
+```
+
+---
+
+### Phase 2 completed actions (archived)
+
+(Phase 2 steps moved above are archived here for reference)
 
 ---
 
@@ -234,14 +337,14 @@ Phase 1 — Foundation                          ✓ COMPLETE
   solution-discovery     [BUILT, fully validated — April 2]
   solution-strategy      [BUILT, fully validated — April 2]
 
-Phase 2 — Design Layer (parallel after Phase 1) ← YOU ARE HERE
+Phase 2 — Design Layer (parallel after Phase 1)   ✓ COMPLETE
   application-design     [BUILT, live-tested, fixes applied — April 5]
-  schema-design          [BUILT, live-tested (partial — see Step 6/7), fixes applied — April 5]
+  schema-design          [BUILT, live-tested, fixes applied — April 13]
 
-Phase 3 — Build Layer (parallel after Phase 2)
+Phase 3 — Build Layer (parallel after Phase 2)    ← YOU ARE HERE
   ui-design              [design approved, not built]
   business-logic         [design approved, not built]
-  security               [design not started]
+  security               [design written April 13, pending approval]
 
 Phase 4 — Lifecycle (parallel after Phase 3)
   integration            [design not started]
@@ -264,7 +367,7 @@ Phase 4 — Lifecycle (parallel after Phase 3)
 | pp-superpowers-business-logic | Approved | 1.0 | Phase 3: business-logic |
 | pp-superpowers-implementation-plan | Approved | 2.0 | — (this tracker replaces its "what's next" role) |
 | pp-superpowers-solution-strategy | Approved | 1.0 | — (skill built) |
-| pp-superpowers-security | **Not started** | — | Phase 3: security |
+| pp-superpowers-security | Draft | 1.0 | Phase 3: security (written April 13) |
 | pp-superpowers-integration | **Not started** | — | Phase 4: integration |
 | pp-superpowers-alm-workflow | **Not started** | — | Phase 4: alm-workflow |
 | pp-superpowers-environment-setup | **Not started** | — | Phase 4: environment-setup |

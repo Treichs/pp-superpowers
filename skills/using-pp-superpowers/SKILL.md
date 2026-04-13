@@ -35,6 +35,9 @@ Use the `Skill` tool. When you invoke a skill, its content is loaded and present
 | `solution-strategy` | Refining solution packaging, defining environment promotion paths, planning deployment strategy — when solution-discovery's packaging section needs deeper architecture |
 | `application-design` | Modeling domain boundaries, defining bounded contexts and aggregates, creating a DDD model, or analyzing an existing solution's domain structure |
 | `schema-design` | Designing Dataverse tables and columns, creating a physical data model, mapping logical attributes to Dataverse types, or reviewing schema against platform patterns |
+| `ui-design` | Designing forms, screens, apps, components, wireframes, or UI layouts for Power Platform — routes to sub-skills for model-driven-app, canvas-app, pcf-control, custom-page, modal-dialog, or code-app |
+| `business-logic` | Implementing server-side plugins, Power Automate flows, business rules, or client scripts — routes to sub-skills for csharp-plugin, power-automate, business-rule, or client-script |
+| `security` | Designing security roles, field-level security, team-based access, or hierarchy security for Power Platform solutions |
 
 ## The Rule
 
@@ -45,7 +48,8 @@ Use the `Skill` tool. When you invoke a skill, its content is loaded and present
 When multiple skills could apply:
 
 1. **Process skills first** (solution-discovery, debugging) — these determine HOW to approach the task
-2. **Domain skills second** (application-design, schema-design) — these guide execution
+2. **Design skills second** (application-design, schema-design) — these define the model
+3. **Build skills third** (ui-design, business-logic, security) — these produce implementation artifacts
 
 ## User Instructions
 
